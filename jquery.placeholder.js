@@ -1,10 +1,13 @@
 /*! http://mths.be/placeholder v2.0.8 by @mathias */
 ;(function(window, document, $) {
+	// IE10 & IE11 hides placeholder on focus so we skip its built in version
+	var isIE11 = !(window.ActiveXObject) && "ActiveXObject" in window;
+	var isIE10 = navigator.appVersion.indexOf("MSIE 10") != -1;
 
 	// Opera Mini v7 doesn’t support placeholder although its DOM seems to indicate so
 	var isOperaMini = Object.prototype.toString.call(window.operamini) == '[object OperaMini]';
-	var isInputSupported = 'placeholder' in document.createElement('input') && !isOperaMini;
-	var isTextareaSupported = 'placeholder' in document.createElement('textarea') && !isOperaMini;
+	var isInputSupported = 'placeholder' in document.createElement('input') && !isOperaMini && !isIE10 && !isIE11;
+	var isTextareaSupported = 'placeholder' in document.createElement('textarea') && !isOperaMini && !isIE10 && !isIE11;
 	var prototype = $.fn;
 	var valHooks = $.valHooks;
 	var propHooks = $.propHooks;
